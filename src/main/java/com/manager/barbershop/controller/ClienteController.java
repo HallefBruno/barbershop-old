@@ -11,7 +11,7 @@ public class ClienteController {
     
     @GetMapping
     public ModelAndView pageInit() {
-        return new ModelAndView("clientes/CadastroCliente");
+        return new ModelAndView("cliente/Novo");
     }
     
 }
