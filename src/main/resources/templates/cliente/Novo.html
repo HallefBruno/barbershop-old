@@ -10,12 +10,52 @@
   <body class="bg-light">
     <main class="container">
       <div class="mb-3">
-        <label for="nome" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="nome" name="nome" autocomplete="off">
+        <label for="nomeComercio" class="form-label">Nome do comercio</label>
+        <input th:field="*{nomeComercio}" type="text" class="form-control" id="nomeComercio" name="nomeComercio" autocomplete="off">
       </div>
       <div class="mb-3">
-        <label for="sobrenome" class="form-label">Sobrenome</label>
-        <input type="text" class="form-control" id="sobrenome" name="sobrenome" autocomplete="off">
+        <label for="cpfCnpj" class="form-label">CNPJ</label>
+        <input th:field="*{cpfCnpj}" type="text" class="form-control" id="cpfCnpj" name="cpfCnpj" autocomplete="off">
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-12 col-lg-4">
+          <label for="estado" class="form-label">Estado</label>
+          <div class="input-group mb-3">
+            <input required="true" type="text" th:field="*{estado}" class="form-control" id="estado" name="estado"/>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-12 col-lg-4">
+          <label for="cidade" class="form-label">Cidade</label>
+          <div class="input-group mb-3">
+            <input required="true" type="text" th:field="*{cidade}" class="form-control" id="cidade" name="cidade"/>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-12 col-lg-4">
+          <label for="bairro" class="form-label">Bairro</label>
+          <div class="input-group mb-3">
+            <input required="true" type="text" th:field="*{bairro}" class="form-control" id="bairro" name="bairro"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12 col-12 col-lg-4">
+          <label for="cep" class="form-label">CEP</label>
+          <div class="input-group mb-3">
+            <input required="true" type="text" th:field="*{cep}" class="form-control cep" id="cep" name="cep"/>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-12 col-lg-4">
+          <label for="logradouro" class="form-label">Logradouro</label>
+          <div class="input-group mb-3">
+            <input required="true" type="text" th:field="*{logradouro}" class="form-control" id="logradouro" name="logradouro"/>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-12 col-lg-4">
+          <label for="qtdUsuario" class="form-label">Quantidade usuário</label>
+          <div class="input-group mb-3">
+            <input required="true" type="text" th:field="*{qtdUsuario}" class="form-control" id="qtdUsuario" name="qtdUsuario"/>
+          </div>
+        </div>
       </div>
       <div class="btn-group btn-group-sm" role="group" aria-label="">
         <button type="button" class="btn btn-outline-dark">Cadastrar</button>

@@ -1,7 +1,7 @@
 package com.manager.barbershop.controller;
 
 import com.manager.barbershop.exception.NegocioException;
-import com.manager.barbershop.model.Cliente;
+import com.manager.barbershop.model.Usuario;
 import com.manager.barbershop.service.ClienteService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/agendamento")
+@RequestMapping("/novaContaCliente")
 @RequiredArgsConstructor
 public class NovaContaController {
 
@@ -29,12 +29,12 @@ public class NovaContaController {
     
 
     @GetMapping
-    public ModelAndView pageInicial(Cliente cliente) {
+    public ModelAndView pageInicial(Usuario cliente) {
         return new ModelAndView("agendamento/NovaConta");
     }
     
     @PostMapping("salvar")
-    public ModelAndView salvar(@RequestParam("image") MultipartFile multipartFile, @Valid Cliente cliente, BindingResult result, Model model, RedirectAttributes attributes) {
+    public ModelAndView salvar(@RequestParam("image") MultipartFile multipartFile, @Valid Usuario cliente, BindingResult result, Model model, RedirectAttributes attributes) {
         try {
             if (result.hasErrors()) {
                 return pageInicial(cliente);

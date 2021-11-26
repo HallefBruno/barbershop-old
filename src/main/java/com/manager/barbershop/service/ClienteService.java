@@ -1,6 +1,6 @@
 package com.manager.barbershop.service;
 
-import com.manager.barbershop.model.Cliente;
+import com.manager.barbershop.model.Usuario;
 import com.manager.barbershop.repository.ClienteRepository;
 import com.manager.barbershop.webconfig.StorageCloudnary;
 import java.io.IOException;
@@ -19,19 +19,19 @@ public class ClienteService {
     private final StorageCloudnary storageCloudnary;
     
     @Transactional
-    public void salvar(Cliente cliente) {
+    public void salvar(Usuario cliente) {
         clienteRepository.save(cliente);
     }
     
     @Transactional
-    public void salvar(Cliente cliente, MultipartFile multipartFile) {
+    public void salvar(Usuario cliente, MultipartFile multipartFile) {
         String nomeArquivo = "";
         try {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             String extension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
             cliente.setNomeFoto(fileName.substring(0, fileName.lastIndexOf(".")));
             cliente.setExtensao(extension);
-            Cliente novo = clienteRepository.save(cliente);
+            Usuario novo = clienteRepository.save(cliente);
             nomeArquivo =  novo.getId().toString()+"-"+cliente.getNomeFoto();
             storageCloudnary.uploadFoto(multipartFile.getBytes(),nomeArquivo);
         } catch(IOException ex) {

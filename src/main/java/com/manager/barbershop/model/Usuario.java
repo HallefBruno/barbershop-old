@@ -2,23 +2,30 @@ package com.manager.barbershop.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 @Data
 @Entity
-public class Cliente implements Serializable {
+public class Usuario implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,16 +56,25 @@ public class Cliente implements Serializable {
     @Column(nullable = false, length = 100)
     private String senha;
     
-    @NotNull(message = "Data nascimento é obrigatória!")
-    @Column(name = "data_nascimento", nullable = false)
+    @Column(nullable = false)
+    private Boolean ativo;
+
+    @Size(min = 1, message = "Selecione pelo menos um grupo")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_grupo"))
+    private Set<Grupo> grupos;
+
+    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
+    
+    @Column(nullable = false)
+    private Boolean proprietario;
     
     @Column(nullable = false, name = "nome_foto", unique = true)
     private String nomeFoto;
     
     @Column(nullable = false)
     private String extensao;
-    
     
     @PrePersist
     @PreUpdate
@@ -68,6 +84,7 @@ public class Cliente implements Serializable {
         this.nome = StringUtils.strip(this.nome);
         this.email = StringUtils.strip(this.email);
         this.senha = StringUtils.strip(this.senha);
+        if(Objects.isNull(this.proprietario)) this.proprietario = false;
     }
     
 }
