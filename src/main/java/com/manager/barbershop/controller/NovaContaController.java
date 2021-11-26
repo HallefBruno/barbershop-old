@@ -1,10 +1,10 @@
-package com.manager.barbershop.controller.agendamento;
+package com.manager.barbershop.controller;
 
+import com.manager.barbershop.exception.NegocioException;
 import com.manager.barbershop.model.Cliente;
 import com.manager.barbershop.service.ClienteService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,14 +34,14 @@ public class NovaContaController {
     }
     
     @PostMapping("salvar")
-    public ModelAndView salvar(@Valid Cliente cliente, BindingResult result, Model model, RedirectAttributes attributes) {
+    public ModelAndView salvar(@RequestParam("image") MultipartFile multipartFile, @Valid Cliente cliente, BindingResult result, Model model, RedirectAttributes attributes) {
         try {
             if (result.hasErrors()) {
                 return pageInicial(cliente);
             }
             cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
-            clienteService.salvar(cliente);
-        } catch (Exception ex) {
+            clienteService.salvar(cliente, multipartFile);
+        } catch (NegocioException ex) {
             ObjectError error = new ObjectError("erro", ex.getMessage());
             result.addError(error);
             return pageInicial(cliente);

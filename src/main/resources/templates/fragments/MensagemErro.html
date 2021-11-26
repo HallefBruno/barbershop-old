@@ -1,0 +1,6 @@
+<div style="margin-top: 10px;" class="mt-1 col-md-4 col-sm-8 col-xxl-3 offset-md-4 offset-sm-2 alert alert-danger mensagem-error alert-dismissible fade show" role="alert" th:if="${#fields.hasAnyErrors()}" >
+    <th:block th:each="detailedError : ${#fields.detailedErrors()}">
+        <div><i class="fa fa-exclamation-circle"></i> [[${detailedError.message}]]</div>
+    </th:block>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>

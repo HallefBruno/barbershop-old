@@ -26,10 +26,6 @@ public class Cliente implements Serializable {
     private String nome;
     
     @NotEmpty
-    @Column(length = 100, name = "sobrenome")
-    private String sobreNome;
-    
-    @NotEmpty
     @Column(nullable = false, length = 11)
     private String telefone;
     
@@ -45,13 +41,18 @@ public class Cliente implements Serializable {
     @Column(nullable = false)
     private Boolean isBarbeiro;
     
+    @Column(nullable = false, name = "nome_foto", unique = true)
+    private String nomeFoto;
+    
+    @Column(nullable = false)
+    private String extensao;
+    
     @PrePersist
     @PreUpdate
     private void prePersistPreUpdate() {
         this.telefone = StringUtils.getDigits(this.telefone);
         this.telefone = StringUtils.strip(this.telefone);
         this.nome = StringUtils.strip(this.nome);
-        this.sobreNome = StringUtils.strip(this.sobreNome);
         this.email = StringUtils.strip(this.email);
         this.senha = StringUtils.strip(this.senha);
     }
