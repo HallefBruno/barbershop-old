@@ -43,6 +43,4 @@ public class ClienteService {
             throw new RuntimeException(ex.getMessage());
         }
     }
-
-    
 }
