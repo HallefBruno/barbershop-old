@@ -15,7 +15,7 @@ public class LoginClienteService {
     
     
     public void usuarioExistente(LoginCliente loginCliente) {
-        clienteRepository.findByEmailAndSenha(loginCliente.getEmail(), loginCliente.getSenha())
+        clienteRepository.findByEmailIgnoreCaseAndTelefone(loginCliente.getEmail(), loginCliente.getTelefone())
         .map(usuario -> {
             return Void.TYPE;
         }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));

@@ -5,8 +5,8 @@ import com.manager.barbershop.model.LoginCliente;
 import com.manager.barbershop.repository.LoginClienteRepository;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ClienteLoginController {
     
     private final LoginClienteRepository clienteRepository;
-    private final PasswordEncoder passwordEncoder;
     
     @GetMapping
     public ModelAndView pageInicial(LoginCliente loginCliente) {
@@ -36,8 +35,7 @@ public class ClienteLoginController {
             if (result.hasErrors()) {
                 return pageInicial(loginCliente);
             }
-            loginCliente.setSenha(passwordEncoder.encode(loginCliente.getSenha()));
-            if(clienteRepository.findByEmailAndSenha(loginCliente.getEmail(), loginCliente.getSenha()).isEmpty()) {
+            if(!clienteRepository.findByEmailIgnoreCaseAndTelefone(loginCliente.getEmail(), StringUtils.getDigits(loginCliente.getTelefone())).isEmpty()) {
                 return new ModelAndView("redirect:/novo/agendamento", HttpStatus.OK);
             }
         } catch (NegocioException ex) {
@@ -45,8 +43,8 @@ public class ClienteLoginController {
             result.addError(error);
             return pageInicial(loginCliente);
         }
-        attributes.addFlashAttribute("mensagem", "Nenhuma conta encontrada!");
-        return pageInicial(loginCliente);
+        attributes.addFlashAttribute("mensagem", "Conta inexistente!");
+        return new ModelAndView("redirect:/login-cliente", HttpStatus.BAD_REQUEST);
     }
     
     @GetMapping("/agendamento")

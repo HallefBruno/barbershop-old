@@ -17,7 +17,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <form class="row g-3" th:action="@{/login}" method="post">
-              <h4>Bem vindo a BarberShop TO<span><i class="fa fa-glass fa-lg" aria-hidden="true"></i></span></h4>
+              <h4 class="text-center">Bem vindo a Barber Shop</h4>
               <div class="col-12">
                 <label for="username">Email</label>
                 <input required type="email" name="username" class="form-control" id="username" placeholder="Email">
@@ -38,7 +38,7 @@
             </form>
             <hr class="mt-4">
             <div class="col-12">
-              <p class="text-center">Não é cliente ainda? <a th:href="@{/validar}">Seja um</a></p>
+              <p class="text-center">Não é cliente ainda? <a th:href="@{/validar}">Seja aqui</a></p>
             </div>
           </div>
         </div>

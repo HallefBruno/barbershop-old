@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoginClienteRepository extends JpaRepository<Cliente, Long> {
-    Optional<Cliente> findByEmailAndSenha(String email, String senha);
+    Optional<Cliente> findByEmailIgnoreCaseAndTelefone(String email, String telefone);
 }

@@ -43,11 +43,11 @@ public class Cliente implements Serializable {
     @Column(nullable = false, length = 200, unique = true)
     private String email;
     
-    @NotBlank(message = "Senha não pode ter espaços em branco!")
-    @NotEmpty(message = "Senha não pode ser vazio!")
-    @NotNull(message = "Senha não pode ser null!")
-    @Column(nullable = false, length = 100)
-    private String senha;
+//    @NotBlank(message = "Senha não pode ter espaços em branco!")
+//    @NotEmpty(message = "Senha não pode ser vazio!")
+//    @NotNull(message = "Senha não pode ser null!")
+//    @Column(nullable = false, length = 100)
+//    private String senha;
     
     @NotNull(message = "Data nascimento é obrigatória!")
     @Column(name = "data_nascimento", nullable = false)
@@ -67,7 +67,7 @@ public class Cliente implements Serializable {
         this.telefone = StringUtils.strip(this.telefone);
         this.nome = StringUtils.strip(this.nome);
         this.email = StringUtils.strip(this.email);
-        this.senha = StringUtils.strip(this.senha);
+        //this.senha = StringUtils.strip(this.senha);
     }
     
 }
