@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.Email;
@@ -63,6 +64,10 @@ public class Usuario implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_grupo"))
     private Set<Grupo> grupos;
+    
+    @JoinColumn(nullable = false)
+    @ManyToOne
+    private ClienteSistema clienteSistema;
 
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;

@@ -8,5 +8,9 @@ create table usuario(
     data_nascimento date not null,
     proprietario boolean not null,
     nome_foto varchar(100) not null unique,
-    extensao varchar(8) not null
+    extensao varchar(8) not null,
+    cliente_sistema_id int8 not null,
+    CONSTRAINT cliente_sistema_fkey
+      FOREIGN KEY(cliente_sistema_id) 
+	  REFERENCES cliente_sistema(id)
 );

@@ -82,6 +82,9 @@ public class ClienteSistema implements Serializable {
     @Column(name = "qtd_usuario", nullable = false)
     private Integer qtdUsuario;
     
+    @Column(nullable = false)
+    private Boolean ativo;
+    
     @PreUpdate
     @PrePersist
     private void prePersistPreUpdate() {
@@ -97,6 +100,7 @@ public class ClienteSistema implements Serializable {
         this.logradouro = this.logradouro.toLowerCase();
         this.cep = StringUtils.getDigits(this.cep);
         this.cpfCnpj = StringUtils.getDigits(this.cpfCnpj);
+        if(this.ativo == null) this.ativo = false;
     }
 }
 
