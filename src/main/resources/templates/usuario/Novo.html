@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cadastro de cliente</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <th:block th:replace="fragments/CssFragments :: css"></th:block>
+</head>
+<div th:replace="fragments/NavBar :: navbar"></div>
+<body class="bg-light">
+  <main class="container">
+    <div class="row">
+      <div class="col-md-8 offset-md-2 mt-2">
+        <form th:action="@{/usuario}" method="post" th:object="${usuario}">
+          <div class="card mb-3">
+            <h5 class="card-header">Cadastro de usuário</h5>
+            <div class="card-body">
+              
+              <div class="row">
+                <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+                  <label for="nome" class="form-label">Nome</label>
+                  <div class="input-group mb-3">
+                    <input th:field="*{nome}" type="text" class="form-control" id="nome" name="nome" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+                  <label for="telefone" class="form-label">Telefone</label>
+                  <div class="input-group mb-3">
+                    <input th:field="*{telefone}" type="text" class="form-control" id="telefone" name="telefone" autocomplete="off">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+                  <label for="email" class="form-label">Email</label>
+                  <div class="input-group mb-3">
+                    <input required="true" type="email" th:field="*{email}" class="form-control" id="email" name="email"/>
+                  </div>
+                </div>
+                
+                <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+                  <label for="senha" class="form-label">Senha</label>
+                  <div class="input-group mb-3">
+                    <input required="true" type="password" th:field="*{senha}" class="form-control" id="senha" name="senha"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row align-items-center">
+                
+                <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+                  <label for="dataNascimento" class="form-label">Data nascimento</label>
+                  <div class="input-group mb-3">
+                    <input required="true" type="date" th:field="*{dataNascimento}" class="form-control" id="dataNascimento" name="dataNascimento"/>
+                  </div>
+                </div>
+                
+                <div class="col-sm-12 col-md-12 col-12 col-lg-2 mb-1">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="ativo" name="ativo" th:checked="*{ativo}">
+                    <label class="form-check-label" for="ativo">Ativo?</label>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-12 col-12 col-lg-4 mb-1">
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="proprietario" name="proprietario" th:checked="*{proprietario}">
+                    <label class="form-check-label" for="proprietario">É proprietário?</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="btn-group btn-group-sm mt-1" role="group" aria-label="">
+                <button type="button" class="btn btn-outline-dark">Cadastrar</button>
+                <button type="button" class="btn btn-outline-dark">Pesquisar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+<th:block th:replace="fragments/JsFragments :: script"></th:block>
+</body>
+</html>

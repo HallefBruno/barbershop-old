@@ -14,6 +14,7 @@ import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -46,22 +47,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/","/show","/login-cliente","/novo","agendamento").permitAll()
+                .antMatchers("/").permitAll()
+                .antMatchers("/show/**").permitAll()
+                .antMatchers("/login-cliente/**").permitAll()
+                .antMatchers("/novo-agendamento/**").permitAll()
         .and()
             .authorizeRequests()
-                .antMatchers("/dashboard/**")
-                .authenticated()
+                .antMatchers("/dashboard/**").hasRole("PADRAO")
+                .antMatchers("/cliente-sistema/**").hasRole("SUPER_USER")
+                .antMatchers("/usuario/**").hasRole("MANTER_USUARIO")
+                .anyRequest().fullyAuthenticated()
         .and()
             .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/dashboard", true)
-                .permitAll()
+                .defaultSuccessUrl("/dashboard", true).permitAll()
+                .failureUrl("/login?error").permitAll()
         .and()
-            .logout().deleteCookies("JSESSIONID")
-            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true).permitAll()
         .and()
             .sessionManagement()
-            .invalidSessionUrl("/login")
+                .invalidSessionUrl("/login")
+        .and()
+            .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
         .and()
             .rememberMe().key("uniqueAndSecret").tokenValiditySeconds(86400)
         .and()
@@ -82,5 +92,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
     }
+    
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
+    }
 
 }
+
+
+//.and().formLogin()
+//.loginPage("/login")
+//.usernameParameter("email")
+//.passwordParameter("password")
+//.defaultSuccessUrl("/default")
+//.failureUrl("/login?error").permitAll()

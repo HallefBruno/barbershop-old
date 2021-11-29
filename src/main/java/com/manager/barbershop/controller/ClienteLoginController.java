@@ -25,7 +25,7 @@ public class ClienteLoginController {
     private final LoginClienteRepository clienteRepository;
     
     @GetMapping
-    public ModelAndView pageInicial(LoginCliente loginCliente) {
+    public ModelAndView pageLoginCliente(LoginCliente loginCliente) {
         return new ModelAndView("LoginCliente");
     }
     
@@ -33,7 +33,7 @@ public class ClienteLoginController {
     public ModelAndView validarLoginUsuario(@Valid LoginCliente loginCliente, Model model,BindingResult result,RedirectAttributes attributes ) {
         try {
             if (result.hasErrors()) {
-                return pageInicial(loginCliente);
+                return pageLoginCliente(loginCliente);
             }
             if(!clienteRepository.findByEmailIgnoreCaseAndTelefone(loginCliente.getEmail(), StringUtils.getDigits(loginCliente.getTelefone())).isEmpty()) {
                 return new ModelAndView("redirect:/novo-agendamento", HttpStatus.OK);
@@ -41,7 +41,7 @@ public class ClienteLoginController {
         } catch (NegocioException ex) {
             ObjectError error = new ObjectError("erro", ex.getMessage());
             result.addError(error);
-            return pageInicial(loginCliente);
+            return pageLoginCliente(loginCliente);
         }
         attributes.addFlashAttribute("mensagem", "Conta inexistente!");
         return new ModelAndView("redirect:/login-cliente", HttpStatus.BAD_REQUEST);
