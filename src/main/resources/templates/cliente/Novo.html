@@ -4,7 +4,7 @@
     <title>Cadastro de cliente</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link th:href="@{/vendor/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <th:block th:replace="fragments/CssFragments :: css"></th:block>
   </head>
   <div th:replace="fragments/NavBar :: navbar"></div>
   <body class="bg-light">
@@ -62,6 +62,6 @@
         <button type="button" class="btn btn-outline-dark">Pesquisar</button>
       </div>
     </main>
-    <script th:src="@{/vendor/js/bootstrap.min.js}" type="text/javascript"></script>
+    <th:block th:replace="fragments/JsFragments :: script"></th:block>
   </body>
 </html>

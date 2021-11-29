@@ -3,12 +3,14 @@
 <html>
   <head>
     <title>Novo cliente sistema</title>
-    <link th:href="@{/vendor/css/bootstrap.min.css}" rel="stylesheet" type="text/css"/>
+    <th:block th:replace="fragments/CssFragments :: css"></th:block>
   </head>
   <div th:replace="fragments/NavBar :: navbar"></div>
   <body>
     <main class="container">
       <form th:action="@{/cliente-sistema/salvar}" method="post" th:object="${clienteSistema}">
+        <th:block th:include="fragments/MensagemSucesso"></th:block>
+        <th:block th:include="fragments/MensagemErro"></th:block>
         <div class="card">
           <h5 class="card-header">Cadastro de novo cliente no sistema</h5>
           <div class="card-body">
@@ -86,8 +88,7 @@
         </div>
       </form>
     </main>
-    <script th:src="@{/vendor/js/jquery-3.6.0.min.js}" type="text/javascript"></script>
-    <script th:src="@{/vendor/js/jquery.mask.min.js}" type="text/javascript"></script>
+    <th:block th:replace="fragments/JsFragments :: script"></th:block>
     <script th:src="@{/app/js/clientesistema/Novo.js}" type="text/javascript"></script>
   </body>
 </html>

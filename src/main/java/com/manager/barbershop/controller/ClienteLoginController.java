@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping(path = {"/login-cliente","/novo"})
+@RequestMapping(path = {"/login-cliente"})
 @RequiredArgsConstructor
 public class ClienteLoginController {
     
@@ -36,7 +36,7 @@ public class ClienteLoginController {
                 return pageInicial(loginCliente);
             }
             if(!clienteRepository.findByEmailIgnoreCaseAndTelefone(loginCliente.getEmail(), StringUtils.getDigits(loginCliente.getTelefone())).isEmpty()) {
-                return new ModelAndView("redirect:/novo/agendamento", HttpStatus.OK);
+                return new ModelAndView("redirect:/novo-agendamento", HttpStatus.OK);
             }
         } catch (NegocioException ex) {
             ObjectError error = new ObjectError("erro", ex.getMessage());
@@ -45,10 +45,5 @@ public class ClienteLoginController {
         }
         attributes.addFlashAttribute("mensagem", "Conta inexistente!");
         return new ModelAndView("redirect:/login-cliente", HttpStatus.BAD_REQUEST);
-    }
-    
-    @GetMapping("/agendamento")
-    public ModelAndView pageAgendamento(LoginCliente loginCliente) {
-        return new ModelAndView("agendamento/Agendar");
     }
 }

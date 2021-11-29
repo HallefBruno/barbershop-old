@@ -43,7 +43,7 @@ public class ClienteSistemaController {
             return index(clienteSistema,model);
         }
         attributes.addFlashAttribute("mensagem", "Novo clinete cadastrado!");
-        return new ModelAndView("redirect:/cliente-sistema", HttpStatus.CREATED);
+        return new ModelAndView("redirect:/cliente-sistema/novo", HttpStatus.CREATED);
     }
     
 }

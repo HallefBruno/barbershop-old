@@ -2,6 +2,7 @@ package com.manager.barbershop.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -85,9 +86,20 @@ public class ClienteSistema implements Serializable {
     @Column(nullable = false)
     private Boolean ativo;
     
-    @PreUpdate
     @PrePersist
-    private void prePersistPreUpdate() {
+    private void prePersist() {
+        this.dataCadastro = LocalDateTime.now();
+        if(Objects.isNull(this.dataAtualizacao))this.dataAtualizacao = this.dataCadastro;
+        prepareAtributtes();
+    }
+    
+    @PreUpdate
+    private void preUpdate() {
+        prepareAtributtes();
+        this.dataAtualizacao = LocalDateTime.now();
+    }
+    
+    private void prepareAtributtes() {
         this.bairro = StringUtils.strip(this.bairro);
         this.bairro = this.bairro.toLowerCase();
         this.cidade = StringUtils.strip(this.cidade);
