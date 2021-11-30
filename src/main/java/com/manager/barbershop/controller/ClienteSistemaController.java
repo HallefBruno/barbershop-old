@@ -4,6 +4,7 @@ package com.manager.barbershop.controller;
 import com.manager.barbershop.exception.NegocioException;
 import com.manager.barbershop.model.ClienteSistema;
 import com.manager.barbershop.service.ClienteSistemaService;
+import com.manager.barbershop.service.GrupoService;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,10 +24,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ClienteSistemaController {
     
     private final ClienteSistemaService clienteSistemaService;
+    private final GrupoService grupoService;
     
     @GetMapping("/novo")
     public ModelAndView index(ClienteSistema clienteSistema, Model model) {
         model.addAttribute("clienteSistema", clienteSistema);
+        model.addAttribute("grupos", grupoService.gupos());
         return new ModelAndView("clientesistema/Novo");
     }
     

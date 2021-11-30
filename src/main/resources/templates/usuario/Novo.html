@@ -71,7 +71,29 @@
                   </div>
                 </div>
               </div>
-
+              <hr>
+              <div style="max-height: 200px; overflow-y: scroll;">
+                <th:block th:each="grupo : ${grupos}">
+                  <p th:text="${grupo.nome}">Grupo</p>
+                  <th:block th:each="permissao : ${grupo.permissoes}">
+                    <div class="checkbox-group" requerid>
+                      <div class="list-group-item border-0">
+                        <div class="d-flex w-100 justify-content-between">
+                          <div class="col-6">
+                            <label class="list-group-item border-0">
+                              <input class="form-check-input me-1" name="grupos" th:id="${grupo}" th:text="${permissao.nome}" th:field="*{grupos}" th:value="${grupo.id}" type="checkbox">
+                            </label>
+                          </div>
+                          <div class="col-6">
+                            <i class="fa fa-unlock-alt  fa-lg" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </th:block>
+                </th:block>
+              </div>
+              <hr>
               <div class="btn-group btn-group-sm mt-1" role="group" aria-label="">
                 <button type="button" class="btn btn-outline-dark">Cadastrar</button>
                 <button type="button" class="btn btn-outline-dark">Pesquisar</button>
