@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.User;
 
 public class UsuarioSistema extends User {
 
-    private Usuario usuario;
+    private final Usuario usuario;
 
     public UsuarioSistema(Usuario usuario, Collection<? extends GrantedAuthority> authorities) {
         super(usuario.getEmail(), usuario.getSenha(), authorities);

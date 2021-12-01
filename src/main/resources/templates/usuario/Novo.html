@@ -15,7 +15,7 @@
           <div class="card mb-3">
             <h5 class="card-header">Cadastro de usuário</h5>
             <div class="card-body">
-              
+
               <div class="row">
                 <div class="col-sm-12 col-md-12 col-12 col-lg-6">
                   <label for="nome" class="form-label">Nome</label>
@@ -31,16 +31,16 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="row">
-                <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+                <div class="col-sm-12 col-md-12 col-12 col-lg-8">
                   <label for="email" class="form-label">Email</label>
                   <div class="input-group mb-3">
                     <input required="true" type="email" th:field="*{email}" class="form-control" id="email" name="email"/>
                   </div>
                 </div>
-                
-                <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+
+                <div class="col-sm-12 col-md-12 col-12 col-lg-4">
                   <label for="senha" class="form-label">Senha</label>
                   <div class="input-group mb-3">
                     <input required="true" type="password" th:field="*{senha}" class="form-control" id="senha" name="senha"/>
@@ -49,14 +49,14 @@
               </div>
 
               <div class="row align-items-center">
-                
+
                 <div class="col-sm-12 col-md-12 col-12 col-lg-6">
                   <label for="dataNascimento" class="form-label">Data nascimento</label>
                   <div class="input-group mb-3">
                     <input required="true" type="date" th:field="*{dataNascimento}" class="form-control" id="dataNascimento" name="dataNascimento"/>
                   </div>
                 </div>
-                
+
                 <div class="col-sm-12 col-md-12 col-12 col-lg-2 mb-1">
                   <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="ativo" name="ativo" th:checked="*{ativo}">
@@ -70,7 +70,22 @@
                     <label class="form-check-label" for="proprietario">É proprietário?</label>
                   </div>
                 </div>
+
               </div>
+
+              <div class="row">
+                <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+                  <div class="callout-md">
+                      Cliente: <span th:field="*{clienteSistema}" th:value="${clienteSistema.id}" th:text="${clienteSistema.nomeComercio}" name="clienteSistema" class="form-label" id="clienteSistema"></span>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-12 col-lg-6">
+                  <div class="callout-md">
+                      CNPJ: <span th:text="${clienteSistema.cpfCnpj}"></span>
+                  </div>
+                </div>
+              </div>
+
               <hr>
               <div style="max-height: 200px; overflow-y: scroll;">
                 <th:block th:each="grupo : ${grupos}">
@@ -81,11 +96,11 @@
                         <div class="d-flex w-100 justify-content-between">
                           <div class="col-6">
                             <label class="list-group-item border-0">
-                              <input class="form-check-input me-1" name="grupos" th:id="${grupo}" th:text="${permissao.nome}" th:field="*{grupos}" th:value="${grupo.id}" type="checkbox">
+                              <input class="form-check-input me-1" name="grupos" th:id="${grupo.id}" th:text="${permissao.nome}" th:field="*{grupos}" th:value="${grupo.id}" type="checkbox">
                             </label>
                           </div>
                           <div class="col-6">
-                            <i class="fa fa-unlock-alt  fa-lg" aria-hidden="true"></i>
+                            <i class="fa fa-unlock-alt fa-lg" aria-hidden="true"></i>
                           </div>
                         </div>
                       </div>
@@ -107,3 +122,34 @@
 <th:block th:replace="fragments/JsFragments :: script"></th:block>
 </body>
 </html>
+
+
+<!--<div class="callout callout-default">
+  <h4>Default Callout</h4>
+  This is a default callout.
+</div>
+
+<div class="callout callout-primary">
+  <h4>Primary Callout</h4>
+  This is a primary callout.
+</div>
+
+<div class="callout callout-success">
+  <h4>Success Callout</h4>
+  This is a success callout.
+</div>
+
+<div class="callout callout-info">
+  <h4>Info Callout</h4>
+  This is an info callout.
+</div>
+
+<div class="callout callout-warning">
+  <h4>Warning Callout</h4>
+  This is a warning callout.
+</div>
+
+<div class="callout callout-danger">
+  <h4>Danger Callout</h4>
+  This is a danger callout.
+</div>-->
