@@ -126,7 +126,7 @@ Barbershop.MascaraCpfCnpj = (function () {
 Barbershop.MaskPhoneNumber = (function () {
 
   function MaskPhoneNumber() {
-    this.inputPhoneNumber = $('.js-phone-number');
+    this.inputPhoneNumber = $('.mascara-telefone');
   }
   MaskPhoneNumber.prototype.enable = function () {
     var maskBehavior = function (val) {
@@ -204,6 +204,9 @@ Barbershop.RemoveMask = (function () {
 }());
 
 $(function () {
+  
+  $('[data-bs-toggle="popover"]').popover();
+  $('[data-bs-toggle="tooltip"]').tooltip();
 
   var dialogo = new Barbershop.DialogoExcluir();
   dialogo.iniciar();

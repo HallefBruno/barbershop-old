@@ -14,10 +14,15 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
+@EqualsAndHashCode
+@DynamicUpdate
 public class Cliente implements Serializable {
     
     @Id
@@ -51,6 +56,7 @@ public class Cliente implements Serializable {
     
     @NotNull(message = "Data nascimento é obrigatória!")
     @Column(name = "data_nascimento", nullable = false)
+    @DateTimeFormat(pattern="yyyy-MM-dd", iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataNascimento;
     
     @Column(nullable = false, name = "nome_foto", unique = true)

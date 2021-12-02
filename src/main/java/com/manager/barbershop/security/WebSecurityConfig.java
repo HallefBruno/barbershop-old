@@ -31,16 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
     
-//    @Override
-//    protected void configure(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.authorizeRequests().antMatchers("/").permitAll();
-//    }
-    
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
-            .antMatchers("/vendor/**")
-            .antMatchers("/imagens/**");
+            .antMatchers("/vendor/**");
     }
 
     @Override
@@ -56,12 +50,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/dashboard/**").hasRole("PADRAO")
                 .antMatchers("/cliente-sistema/**").hasRole("SUPER_USER")
                 .antMatchers("/usuario/**").hasRole("MANTER_USUARIO")
-                .anyRequest().fullyAuthenticated()
+                .anyRequest().authenticated()
         .and()
             .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/dashboard").permitAll()
-                .failureUrl("/login?error").permitAll()
+                .defaultSuccessUrl("/dashboard")
+                .permitAll()
         .and()
             .logout().deleteCookies("JSESSIONID")
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

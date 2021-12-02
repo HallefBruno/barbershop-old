@@ -28,7 +28,10 @@ public class ExceptionController {
     public ModelAndView badRequestError(Exception ex, final Model model, HttpServletRequest request) {
         String servPath = request.getServletPath();
         String redirect = servPath.substring(0,servPath.indexOf("/",2));
-        String msg = ((DataIntegrityViolationException) ex).getMostSpecificCause().getMessage();
+        String msg = ex.getLocalizedMessage();
+        if(ex instanceof DataIntegrityViolationException) {
+            msg = ((DataIntegrityViolationException) ex).getMostSpecificCause().getMessage();
+        }
         model.addAttribute("errorMessage", msg);
         model.addAttribute("path", redirect);
         return new ModelAndView("Error");

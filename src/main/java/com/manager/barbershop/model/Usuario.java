@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
@@ -70,10 +71,12 @@ public class Usuario implements Serializable {
     private ClienteSistema clienteSistema;
 
     @Column(name = "data_nascimento")
+    @DateTimeFormat(pattern="yyyy-MM-dd", iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataNascimento;
     
     @Column(nullable = false)
     private Boolean proprietario;
+    
     
     @Column(nullable = false, name = "nome_foto", unique = true)
     private String nomeFoto;
