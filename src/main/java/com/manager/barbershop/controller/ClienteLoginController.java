@@ -35,7 +35,7 @@ public class ClienteLoginController {
             if (result.hasErrors()) {
                 return pageLoginCliente(loginCliente);
             }
-            if(!clienteRepository.findByEmailIgnoreCaseAndTelefone(loginCliente.getEmail(), StringUtils.getDigits(loginCliente.getTelefone())).isEmpty()) {
+            if(clienteRepository.findByEmailIgnoreCaseAndTelefone(loginCliente.getEmail(), StringUtils.getDigits(loginCliente.getTelefone())).isPresent()) {
                 return new ModelAndView("redirect:/novo-agendamento", HttpStatus.OK);
             }
         } catch (NegocioException ex) {

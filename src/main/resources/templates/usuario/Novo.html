@@ -21,7 +21,9 @@
                 <img id="image-viewer" width="110px" height="110px" th:src="@{/vendor/imagens/avatar-default.jpg}" style="border-radius: 50%;" alt="Cliente"/>
               </div>
               <div class="text-center">
-                <input type="file" style="width:135px;" required="true" class="mt-1" name="image" id="image" accept="image/png,image/jpeg"/>
+                <div class="col-md-4 offset-md-4">
+                  <input type="file" required="true" class="mt-1 form-control form-control-sm" name="image" id="image" accept="image/png,image/jpeg"/>
+                </div>
               </div>
               <div class="row">
                 <div class="col-sm-12 col-md-12 col-12 col-lg-8">
@@ -43,7 +45,7 @@
                 <div class="col-sm-12 col-md-12 col-12 col-lg-8">
                   <label for="email" class="form-label">Email *</label>
                   <div class="input-group mb-3">
-                    <input required="true" maxlength="200" type="email" th:field="*{email}" class="form-control" id="email" name="email"/>
+                    <input required="true" maxlength="200" type="email" th:field="*{email}" class="form-control" id="email" name="email" autocomplete="off"/>
                   </div>
                 </div>
 
@@ -80,42 +82,40 @@
 
               </div>
 
-              <div class="row">
+<!--              <div class="row">
                 <div class="col-sm-12 col-md-12 col-12 col-lg-6">
                   <div class="callout-md">
-                      Cliente: <span th:field="*{clienteSistema}" th:value="${clienteSistema}" th:text="${clienteSistema.nomeComercio}" name="clienteSistema" class="form-label" id="clienteSistema"></span>
+                    Cliente: <span th:text="${clienteSistema.nomeComercio}" class="form-label"></span>
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-12 col-12 col-lg-6">
                   <div class="callout-md">
-                      CNPJ: <span th:text="${clienteSistema.cpfCnpj}"></span>
+                    CNPJ: <span th:text="${clienteSistema.cpfCnpj}"></span>
                   </div>
                 </div>
-              </div>
+              </div>-->
 
               <hr>
               <div style="max-height: 200px; overflow-y: scroll;" id="divPermissoes" data-bs-toggle="tooltip" data-bs-placement="left">
                 <th:block th:each="grupo : ${grupos}">
                   <th:block th:if="${grupo.nome} != 'SuperUser'">
-                    <p th:text="${grupo.nome}">Grupo</p>
-                    <th:block th:each="permissao : ${grupo.permissoes}">
-                      <div class="checkbox-group">
-                        <div class="list-group-item border-0">
-                          <div class="d-flex w-100 justify-content-between">
-                            <div class="col-6">
-                              <label class="list-group-item border-0">
-                                <input class="form-check-input me-1" name="grupos" th:id="${grupo.id}" th:text="${permissao.nome}" th:field="*{grupos}" th:value="${grupo.id}" type="checkbox">
-                              </label>
-                            </div>
-                            <div class="col-6">
-                              <i class="fa fa-unlock-alt fa-lg" aria-hidden="true"></i>
-                            </div>
+                    <div class="checkbox-group">
+                      <div class="list-group-item border-0">
+                        <div class="d-flex w-100 justify-content-between">
+                          <div class="col-6">
+                            <label class="list-group-item border-0">
+                              <input class="form-check-input me-1" name="grupos" th:id="${grupo.id}" th:text="${grupo.nome}" th:field="*{grupos}" th:value="${grupo.id}" type="checkbox">
+                            </label>
+                          </div>
+                          <div class="col-6">
+                            <i class="fa fa-unlock-alt fa-lg mt-2" aria-hidden="true"></i>
                           </div>
                         </div>
                       </div>
-                    </th:block>
+                    </div>
                   </th:block>
                 </th:block>
+
               </div>
               <hr>
               <div class="btn-group btn-group-sm mt-1" role="group" aria-label="">
@@ -128,30 +128,30 @@
       </div>
     </div>
   </main>
-  <th:block th:replace="fragments/JsFragments :: script"></th:block>
-  <script>
-    $(function () {
-      $("#nome").focus();
-      $("input[name=image]").change(function () {
-        if (this.files && this.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
+<th:block th:replace="fragments/JsFragments :: script"></th:block>
+<script>
+  $(function () {
+    $("#nome").focus();
+    $("input[name=image]").change(function () {
+      if (this.files && this.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
             $('#image-viewer').attr('src', e.target.result);
-          };
-          reader.readAsDataURL(this.files[0]);
-        }
-      });
-      
-      $("form").submit(function () {
-        if($('div.checkbox-group :checkbox:checked').length <= 0) {
-          var messagem = new Barbershop.Mensagem();
-          messagem.show('warning', 'Permissão é obrigatória!');
-          $("#divPermissoes").prop("title","Selecione as permissões");
-          return false;
-        }
-      });
+        };
+        reader.readAsDataURL(this.files[0]);
+      }
     });
-  </script>
+
+    $("form").submit(function () {
+      if ($('div.checkbox-group :checkbox:checked').length <= 0) {
+        var messagem = new Barbershop.Mensagem();
+        messagem.show('warning', 'Permissão é obrigatória!');
+        $("#divPermissoes").prop("title", "Selecione as permissões");
+        return false;
+      }
+    });
+  });
+</script>
 </body>
 </html>
 
@@ -185,3 +185,25 @@
   <h4>Danger Callout</h4>
   This is a danger callout.
 </div>-->
+
+<!--<th:block th:each="grupo : ${grupos}">
+  <th:block th:if="${grupo.nome} != 'SuperUser'">
+    <p th:text="${grupo.nome}">Grupo</p>
+    <th:block th:each="permissao : ${grupo.permissoes}">
+      <div class="checkbox-group">
+        <div class="list-group-item border-0">
+          <div class="d-flex w-100 justify-content-between">
+            <div class="col-6">
+              <label class="list-group-item border-0">
+                <input class="form-check-input me-1" name="grupos" th:id="${grupo.id}" th:text="${permissao.nome}" th:field="*{grupos}" th:value="${grupo.id}" type="checkbox">
+              </label>
+            </div>
+            <div class="col-6">
+              <i class="fa fa-unlock-alt fa-lg" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </th:block>
+  </th:block>
+</th:block>-->

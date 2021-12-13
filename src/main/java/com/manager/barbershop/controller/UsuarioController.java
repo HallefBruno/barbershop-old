@@ -30,7 +30,6 @@ public class UsuarioController {
     @GetMapping
     public ModelAndView pageNovo(Usuario usuario, Model model) {
         model.addAttribute("grupos", grupoService.gupos());
-        model.addAttribute("usuario", usuario);
         model.addAttribute("clienteSistema", usuarioService.getUsuarioLogado().getClienteSistema());
         return new ModelAndView("usuario/Novo");
     }

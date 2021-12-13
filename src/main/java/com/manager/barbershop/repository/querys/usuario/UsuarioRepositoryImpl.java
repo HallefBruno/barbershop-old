@@ -21,7 +21,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom {
 
     @Override
     public List<String> permissoes(Usuario usuario) {
-        return manager.createQuery("select distinct p.nome from Usuario u inner join u.grupos g inner join g.permissoes p where u = :usuario", String.class)
+        return manager.createQuery("select distinct p.nome from Usuario u join u.grupos g join g.permissoes p where u = :usuario", String.class)
             .setParameter("usuario", usuario)
             .getResultList();
     }
